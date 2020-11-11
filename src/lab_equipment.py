@@ -39,10 +39,10 @@ class DMM_34410A:
 		self.inst.write("*RST")
 
 	def measure_voltage(self):
-		return float(self.inst.query("MEASure:VOLTage?"))
+		return float(self.inst.query("MEAS:VOLT?"))
 
 	def measure_current(self):
-		return float(self.inst.query("MEASure:CURRent?"))
+		return float(self.inst.query("MEAS:CURR?"))
 
 class E3631A:
 	def __init__(self, resource_id = 'ASRL6::INSTR'):
@@ -50,28 +50,28 @@ class E3631A:
 		self.inst = rm.open_resource(resource_id, query_delay=0.5)
 		self.inst.baud_rate = 9600
 		print("Connected to %s\n" % self.inst.query("*IDN?"))
-		self.inst.write("SYSTem:REMote")
+		self.inst.write("SYST:REM")
 		time.sleep(0.1)
 		self.inst.write("*RST")
 
 	def measure_voltage(self, output="P25V"):
 		time.sleep(0.75)
-		self.inst.write(":MEASure:VOLTage:DC? %s" % output)
+		self.inst.write(":MEAS:VOLT:DC? %s" % output)
 		time.sleep(0.3)
 		self.inst.write("*OPC")
 		return float(self.inst.read())
 
 	def measure_current(self, output="P25V"):
 		time.sleep(0.75)
-		self.inst.write(":MEASure:CURRent:DC? %s" % output)
+		self.inst.write(":MEAS:CURR:DC? %s" % output)
 		time.sleep(0.3)
 		self.inst.write("*OPC")
 		return float(self.inst.read())
 		#return self.inst.query(":MEASure:VOLTage:DC? P25V")
 
 	def set_output(self, output = "P25V", voltage = 0, current = 0):
-		query = "APPL %s, %s, %s" % (output, voltage, current)
-		self.inst.write(("APPL %s, %s, %s") % (output, voltage, current))
+		#query = "APPL %s, %s, %s" % (output, voltage, current)
+		self.inst.query(("APPL %s, %s, %s") % (output, voltage, current))
 
 	def output_on(self):
 		self.inst.write("OUTP ON")
@@ -80,7 +80,7 @@ class E3631A:
 		self.inst.write("OUTP OFF")
 
 	def close(self):
-		self.inst.write("SYSTem:LOCal")
+		self.inst.write("SYST:LOC")
 
 class N8740A:
 	def __init__(self, resource_id = ''):
@@ -93,24 +93,24 @@ class N8740A:
 		return float(self.inst.query(""))
 
 	def measure_current(self):
-		return float(self.inst.query("MEASure:CURRent:DC?"))
+		return float(self.inst.query("MEAS:CURR:DC?"))
 
 	def set_output(self, voltage = 0, current = 0):
 		if (voltage > 150) or (voltage < 0):
-			print "Voltage Set Point Out of Range\n"
+			print ("Voltage Set Point Out of Range\n")
 			return False	
 
 		# set current limitß
-		self.inst.write("SOURce:CURRent:IMM %s" % (current))
+		self.inst.write("SOUR:CURR:IMM %s" % (current))
 		#self.inst.write("SOURce:CURRent:TRIG %s" % (current))
 
 		# set current protection
-		self.inst.write("SOURce:CURRent:PROT:STATe ON")
-		state = str(self.inst.query("SOURce:CURRent:PROT:STATe?"))
+		self.inst.write("SOUR:CURR:PROT:STAT ON")
+		state = str(self.inst.query("SOUR:CURR:PROT:STAT?"))
 		if state == 'ON':
 			# set voltage level
-			self.inst.write("SOURce:VOLTage:IMM %s" % (voltage))
-			voltage_level = self.inst.query("SOURce:VOLTage:IMM?")
+			self.inst.write("SOUR:VOLT:IMM %s" % (voltage))
+			return self.inst.query("SOUR:VOLT:IMM?")
 			#self.inst.write("SOURce:VOLTage:TRIG %s" % (voltage))
 			#self.inst.write("SOURce:VOLTage:TRIG?")
 

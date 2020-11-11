@@ -59,7 +59,7 @@ class GPIO():
 	def pack_data(self, command, pin, state):
 		data = (command << 8) | (pin << 3) | state
 		data = str(data) + '\n'
-		print data
+		print(data)
 		self.ser.write(data)
 		time.sleep(0.05)
 		return self.ser.readline()
@@ -96,7 +96,7 @@ class GPIO():
 
 def only_numerics(seq):
 	val = filter(type(seq).isdigit, seq)
-	print val
+	print(val)
 	return val
 
 def test_pack_data():
@@ -121,9 +121,9 @@ def test_pack_data():
 if __name__ == "__main__":
 
 	controller_board = GPIO()
-	print controller_board.read_ADC(CONTROLLER_BOARD.VBAT)
-	print controller_board.read_ADC(CONTROLLER_BOARD.VREF)
-	print controller_board.read_ADC(CONTROLLER_BOARD.TEMP)
+	print (controller_board.read_ADC(CONTROLLER_BOARD.VBAT))
+	print (controller_board.read_ADC(CONTROLLER_BOARD.VREF))
+	print (controller_board.read_ADC(CONTROLLER_BOARD.TEMP))
 
 	while True:
 		controller_board.set_GPO(CONTROLLER_BOARD.LED_RED, 0)
