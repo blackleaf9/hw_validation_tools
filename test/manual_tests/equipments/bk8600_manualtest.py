@@ -47,12 +47,13 @@ while Operation != "End":
                 print("Output On")
                 time.sleep(10)
     
+    elif Operation == 'End':
+        inst._set_input_off() 
+        time.sleep(1)
+        print("Manual Testing Done")
+    
     else :
         print("Error")
         time.sleep(2)
 
-
-inst._set_input_off() 
-time.sleep(1)
-print("Manual Testing Done")
 

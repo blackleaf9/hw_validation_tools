@@ -28,32 +28,34 @@ while Operation != "End":
         print("Measuring Current")
         time.sleep(2)
         print("current is: %d", inst.measure_current())
-        time.sleep(10)
+        time.sleep(3)
         
     elif Operation == 'V':  
-        print("Measuring Current")
+        print("Measuring Voltage")
         time.sleep(2) 
         print("voltage is: %d", inst.measure_voltage())
-        time.sleep(10)
+        time.sleep(3)
     
     elif Operation == 'OFF':
         inst.output_off() 
         print("Output OFF")
-        time.sleep(10)
+        time.sleep(5)
         while(Operation != "ON"):
             Operation = input("Enter ON to turn on Output")
             if Operation == "ON":
                 inst.output_on()
                 print("Output On")
-                time.sleep(10)
+                time.sleep(5)
+    elif Operation == 'End':
+        inst.output_off() 
+        time.sleep(1)
+        inst.close()    
+        print("Manual Testing Done")
     
     else :
         print("Error")
         time.sleep(2)
 
-inst.output_off() 
-time.sleep(1)
-inst.close()
-print("Manual Testing Done")
+
 
 

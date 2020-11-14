@@ -26,12 +26,14 @@ while Operation != "End":
                 time.sleep(2)
         except KeyboardInterrupt:
             pass
+    elif Operation == 'End':
+        print("Manual Testing Done")
     else :
         print("Error")
         time.sleep(2)
 
 
-print("Manual Testing Done")
+
 
 
 

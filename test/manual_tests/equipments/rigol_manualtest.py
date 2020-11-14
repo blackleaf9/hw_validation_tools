@@ -24,6 +24,9 @@ while Operation != "End":
     elif Operation == 'p':
         print("frequency is: %d", inst.period())
 
+    elif Operation == 'End':
+        print("frequency is: %d", inst.period())
+        print("Manual Testing Done")
     else :
         print("Error")
         time.sleep(2)

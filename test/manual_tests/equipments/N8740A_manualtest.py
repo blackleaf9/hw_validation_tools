@@ -30,7 +30,7 @@ while Operation != "End":
         time.sleep(10)
         
     elif Operation == 'V':  
-        print("Measuring Current")
+        print("Measuring Voltage")
         time.sleep(2) 
         print("voltage is: %d", inst.measure_voltage())
         time.sleep(10)
@@ -47,12 +47,14 @@ while Operation != "End":
                 inst.set_output(voltage,current)
                 inst.output_on()
                 print("Output On")
-                time.sleep(10)
+                time.sleep(5)
+
+    elif Operation == 'End':
+        inst.output_off() 
+        time.sleep(2)
+        inst.close()
+        print("Manual Testing Done")
     else :
         print("Error")
         time.sleep(2)
 
-inst.output_off() 
-time.sleep(2)
-inst.close()
-print("Manual Testing Done")
