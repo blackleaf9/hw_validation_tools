@@ -31,7 +31,7 @@ while Operation != "End":
         time.sleep(10)
         
     elif Operation == 'V':  
-        print("Measuring Current")
+        print("Measuring Voltage")
         time.sleep(2) 
         print("voltage is: %d", inst.measure_voltage())
         time.sleep(10)
