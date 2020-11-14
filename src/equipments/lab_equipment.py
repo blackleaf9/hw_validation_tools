@@ -90,7 +90,7 @@ class N8740A:
 		self.inst.write("*RST")
 
 	def measure_voltage(self):
-		return float(self.inst.query(""))
+		return float(self.inst.query("MEAS:VOLT:DC?"))
 
 	def measure_current(self):
 		return float(self.inst.query("MEAS:CURR:DC?"))
@@ -113,6 +113,17 @@ class N8740A:
 			return self.inst.query("SOUR:VOLT:IMM?")
 			#self.inst.write("SOURce:VOLTage:TRIG %s" % (voltage))
 			#self.inst.write("SOURce:VOLTage:TRIG?")
+	
+	def output_off(self):
+		self.inst.write("OUTP OFF")
+
+	def output_on(self):
+		self.inst.write("OUTP ON")
+
+	def close(self):
+		self.inst.write("SYST:LOC")
+
+	
 
 if __name__ == "__main__":
 	psu = E3631A()

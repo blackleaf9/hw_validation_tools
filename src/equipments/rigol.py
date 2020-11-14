@@ -10,10 +10,11 @@ import datetime
 class DS1054Z(object):
     # Initialize to the bay's DS1054Z address through USB
 	def __init__(self, resource_id='USB0::6833::1230::DS1ZA182511136::0::INSTR'):
-	    rm = pyvisa.ResourceManager()
-	    self.inst = rm.open_resource(resource_id)
-	    print("Connected to %s\n" % self.inst.query("*IDN?"))
-	    self.inst.write("*RST")
+		rm = pyvisa.ResourceManager()
+		self.inst = rm.open_resource(resource_id)
+		print("Connected to %s\n" % self.inst.query("*IDN?"))
+		time.sleep(0.3)
+		self.inst.write("*RST")
 	
 	def screencapture(self, filename='', auto_view=True):
 		buf = self.inst.query_binary_values(':DISP:DATA? ON,0,PNG', datatype='B')
