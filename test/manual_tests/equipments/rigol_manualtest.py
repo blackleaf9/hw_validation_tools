@@ -2,14 +2,19 @@ import pyvisa
 import time
 from src.equipments.rigol import DS1054Z
 
+Operation = "OFF"
+while(Operation == "OFF"):
+    Operation = input("Enter ON to turn on Output")
+    if Operation == "ON":
+        inst = DS1054Z()
+        print("DS1054Z ON")
+    time.sleep(0.2)
 #initialize instrument
-inst = DS1054Z()
+
 
 print("Setting up Inst")
 inst.setup_channel()
 inst.autoscale()
-
-Operation = "ON"
 while Operation != "End":
     Operation = input("Enter:\n"+"SC for screen capture\n"+"V to meausre rms voltage\n" + "f to measure frequency\n"+"P to measure period\n"+" End to close testing") 
     if Operation == "SC":
@@ -22,15 +27,13 @@ while Operation != "End":
         print("frequency is: %d", inst.frequency())
 
     elif Operation == 'p':
-        print("frequency is: %d", inst.period())
+        print("Period is: %d", inst.period())
 
     elif Operation == 'End':
-        print("frequency is: %d", inst.period())
         print("Manual Testing Done")
     else :
         print("Error")
-        time.sleep(2)
+        time.sleep(1)
 
 
-print("Manual Testing Done")
 

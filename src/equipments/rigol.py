@@ -1,5 +1,4 @@
 import pyvisa
-import numpy as np
 import time
 import datetime
 #from ds1054z import DS1054Z
@@ -57,7 +56,7 @@ class DS1054Z(object):
 
 	def reset(self):
 		self.inst.write("*RST")
-		print("Reset oscilloscope")	
+		print("Oscilloscope Reset")	
 
 	def end_session(self):
 		self.inst.close()
@@ -133,7 +132,7 @@ class DS1054Z(object):
 		return float(self.inst.query(':MEAS:ITEM? ' + 'RDEL' + ',CHAN' + str(channel)))
 
 	def falling_delay_time(self,channel = 1):
-		#string',description='time difference between the falling edges of source 1 and source 2. Negative delay indicates that the selected falling edge of source 1 occurred after that of source 2
+		#time difference between the falling edges of source 1 and source 2. Negative delay indicates that the selected falling edge of source 1 occurred after that of source 2
 		return float(self.inst.query(':MEAS:ITEM? ' + 'FDEL' + ',CHAN' + str(channel)))
 
 	def positive_slew_rate(self, channel = 1):

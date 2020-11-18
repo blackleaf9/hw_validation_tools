@@ -21,8 +21,29 @@ class Bk8600(object):
     # To Set E-Load in Amps
     def set_current(self, current_setpoint_amps):
         self.instrument.write("{} {}".format(Bk8600.CURRENT_LEVEL_COMMAND, current_setpoint_amps))
-        self.instrument.query("*OPC?")
+        OPC = self.instrument.query("*OPC?")
         self._set_input_on()
+        return OPC
+
+    def set_voltage(self, voltage_setpoint_A):		
+        self.instrument.write("VOLT:LEV %s" % voltage_setpoint_A)
+        OPC = self.instrument.query("*OPC?")
+        self.instrument.write("INPut ON")
+        return OPC
+    
+    def set_resistance(self, resistance_setpoint_A):		
+        self.instrument.write("RES:LEV %s" % resistance_setpoint_A)
+        OPC = self.instrument.query("*OPC?")
+        self.instrument.write("INPut ON")
+        return OPC
+
+    def set_power(self, power_setpoint_A):		
+        self.instrument.write("POW:LEV %s" % power_setpoint_A)
+        OPC = self.instrument.query("*OPC?")
+        self.instrument.write("INPut ON")
+        return OPC
+
+
 
     def _set_input_on(self):
         self.instrument.write(Bk8600.INPUT_ON_CMD)
@@ -30,11 +51,6 @@ class Bk8600(object):
     def _set_input_off(self):
         self.instrument.write(Bk8600.INPUT_OFF_CMD)
 
-    def toggle_eload(self, state):
-        if state:
-            self._set_input_on()
-        else:
-            self._set_input_off()
 
     def measure_voltage(self):
         return float(self.instrument.query(Bk8600.DC_VOLTAGE_QUERY))

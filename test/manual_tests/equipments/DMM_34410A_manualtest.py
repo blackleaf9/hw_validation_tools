@@ -15,7 +15,7 @@ while Operation != "End":
         try:
             while True:
                 print("voltage is: %d", inst.measure_voltage())
-                time.sleep(2)
+                time.sleep(1)
         except KeyboardInterrupt:
             pass
 
@@ -23,14 +23,14 @@ while Operation != "End":
         try:
             while True:
                 print("current is: %d", inst.measure_current())
-                time.sleep(2)
+                time.sleep(1)
         except KeyboardInterrupt:
             pass
     elif Operation == 'End':
         print("Manual Testing Done")
     else :
         print("Error")
-        time.sleep(2)
+        time.sleep(1)
 
 
 

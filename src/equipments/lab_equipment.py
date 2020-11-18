@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import visa
-import numpy as np
 import time
 
 # E-Load
@@ -15,14 +14,27 @@ class BK8600:
 	# To Set E-Load in Amps 
 	def set_current(self, current_setpoint_A):		
 		self.inst.write("CURR:LEV %s" % current_setpoint_A)
-		self.inst.query("*OPC?")
+		OPC = self.inst.query("*OPC?")
 		self.inst.write("INPut ON")
+		return OPC
+	
+	def set_voltage(self, voltage_setpoint_A):		
+		self.inst.write("VOLT:LEV %s" % voltage_setpoint_A)
+		OPC = self.inst.query("*OPC?")
+		self.inst.write("INPut ON")
+		return OPC
+		
+	def set_resistance(self, resistance_setpoint_A):		
+		self.inst.write("RES:LEV %s" % resistance_setpoint_A)
+		OPC = self.inst.query("*OPC?")
+		self.inst.write("INPut ON")
+		return OPC
 
-	def toggle_eload(self, state):
-		if state:
-			self.inst.write("INPut ON")
-		else:
-			self.inst.write("INPut OFF")
+	def set_power(self, power_setpoint_A):		
+		self.inst.write("POW:LEV %s" % power_setpoint_A)
+		OPC = self.inst.query("*OPC?")
+		self.inst.write("INPut ON")
+		return OPC
 
 	def measure_voltage(self):
 		return float(self.inst.query("MEAS:VOLT:DC?"))
@@ -72,6 +84,16 @@ class E3631A:
 	def set_output(self, output = "P25V", voltage = 0, current = 0):
 		#query = "APPL %s, %s, %s" % (output, voltage, current)
 		self.inst.query(("APPL %s, %s, %s") % (output, voltage, current))
+	
+	def set_current(self, current_setpoint_A):		
+		self.inst.write("CURR:LEV %s" % current_setpoint_A)
+		OPC = self.inst.query("*OPC?")
+		return OPC
+	
+	def set_voltage(self, voltage_setpoint_A):		
+		self.inst.write("VOLT:LEV %s" % voltage_setpoint_A)
+		OPC = self.inst.query("*OPC?")
+		return OPC
 
 	def output_on(self):
 		self.inst.write("OUTP ON")

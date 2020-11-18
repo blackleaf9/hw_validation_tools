@@ -20,7 +20,7 @@ while(Operation == "OFF"):
     if Operation == "ON":
         inst._set_input_on()
         print("Input On")
-    time.sleep(10)
+    time.sleep(0.2)
 
 
 while Operation != "End":
@@ -30,14 +30,14 @@ while Operation != "End":
             while True:
                 print("current is: %d", inst.measure_current())
                 print("voltage is: %d", inst.measure_voltage())
-                time.sleep(2)
+                time.sleep(0.2)
         except KeyboardInterrupt:
             pass
 
     elif Operation == 'OFF':
         inst._set_input_off() 
         print("Output OFF")
-        time.sleep(10)
+        time.sleep(0.2)
         while(Operation != "ON"):
             Operation = input("Enter ON to turn on Output")
             if Operation == "ON":
@@ -45,7 +45,7 @@ while Operation != "End":
                 inst.set_current(Current)
                 inst._set_input_on()
                 print("Output On")
-                time.sleep(10)
+                time.sleep(0.2)
     
     elif Operation == 'End':
         inst._set_input_off() 
@@ -54,6 +54,6 @@ while Operation != "End":
     
     else :
         print("Error")
-        time.sleep(2)
+        time.sleep(0.2)
 
 
